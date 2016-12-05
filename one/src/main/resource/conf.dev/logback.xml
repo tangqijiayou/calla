@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+  <property name="logFilePath" value="${catalina.home}/logs/one-" />
+
+  <appender name="DebugRollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <filter class="ch.qos.logback.classic.filter.LevelFilter">
+      <level>INFO</level>
+      <onMatch>ACCEPT</onMatch>
+      <onMismatch>DENY</onMismatch>
+    </filter>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <fileNamePattern>${logFilePath}debug-%d{yyyy-MM-dd}.log</fileNamePattern>
+      <maxHistory>10</maxHistory>
+      <totalSizeCap>3GB</totalSizeCap>
+    </rollingPolicy>
+    <encoder charset="UTF-8">
+      <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger %L - %msg%n</pattern>
+    </encoder>
+  </appender>
+
+  <appender name="ErrorRollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <filter class="ch.qos.logback.classic.filter.LevelFilter">
+      <level>ERROR</level>
+      <onMatch>ACCEPT</onMatch>
+      <onMismatch>DENY</onMismatch>
+    </filter>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <fileNamePattern>${logFilePath}error-%d{yyyy-MM-dd}.log</fileNamePattern>
+      <maxHistory>10</maxHistory>
+      <totalSizeCap>3GB</totalSizeCap>
+    </rollingPolicy>
+    <encoder charset="UTF-8">
+      <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger %L - %msg%n</pattern>
+    </encoder>
+  </appender>
+
+  <appender name="RollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+      <level>INFO</level>
+    </filter>
+    <filter class="ch.qos.logback.classic.filter.LevelFilter">
+      <level>ERROR</level>
+      <onMatch>DENY</onMatch>
+      <onMismatch>ACCEPT</onMismatch>
+    </filter>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <fileNamePattern>${logFilePath}log-%d{yyyy-MM-dd}.log</fileNamePattern>
+      <maxHistory>10</maxHistory>
+      <totalSizeCap>3GB</totalSizeCap>
+    </rollingPolicy>
+    <encoder charset="UTF-8">
+      <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger %L - %msg%n</pattern>
+    </encoder>
+  </appender>
+
+  <root>
+    <level value="INFO" />
+    <appender-ref ref="DebugRollingFile" />
+    <appender-ref ref="ErrorRollingFile" />
+    <appender-ref ref="RollingFile" />
+  </root>
+
+  <logger name="org.springframework" level="INFO" />
+  <logger name="org.hibernate" level="INFO" />
+  <logger name="com.opensymphony" level="WARN" />
+  <logger name="org.apache" level="WARN" />
+  <logger name="com.mchange.v2" level="INFO" />
+</configuration>  
