@@ -1,20 +1,19 @@
-package com.tangqijiayou.calla.repository;
+package com.tangqijiayou.calla.service;
 
-import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.tangqijiayou.calla.model.one.Account;
-
 
 /**
  * @author merry
  *
  */
-public interface IAccountRepository extends JpaRepository<Account, Long>{
+public interface IAccountService{
+
 	/**
 	 * 根据手机号查询用户表
 	 * 
 	 * @param phone
-	 * @return
+	 * @return Account
 	 */
 	public Account findByPhone(String phone);
 	
@@ -22,9 +21,7 @@ public interface IAccountRepository extends JpaRepository<Account, Long>{
 	 * 新增用户
 	 * 
 	 * @param account
-	 * @return
+	 * @return Account
 	 */
-	@SuppressWarnings("unchecked")
 	public Account save(Account account);
-	
 }
